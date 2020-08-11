@@ -1,7 +1,7 @@
-import * as React from "react";
-import { Backdrop, CircularProgress } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
+import * as React from 'react';
+import { Backdrop, CircularProgress } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 
 export interface LoadingProps {
   className?: string;
@@ -11,8 +11,8 @@ export interface LoadingProps {
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     // Make sure the backdrop is above everything (drawer has the highest zIndex)
-    zIndex: theme.zIndex.drawer + 1
-  }
+    zIndex: theme.zIndex.drawer + 1,
+  },
 }));
 
 function Loading({ className, open = false }: LoadingProps) {

@@ -1,13 +1,13 @@
-import cors = require("cors");
-import dotenv = require("dotenv");
-import express = require("express");
-import rateLimit = require("express-rate-limit");
-import httpErrors = require("http-errors");
-import jwt = require("jsonwebtoken");
-import passport = require("passport");
-import httpBearer = require("passport-http-bearer");
-import countryDataHandler = require("./countryData");
-import type { NextFunction, Request, Response } from "express";
+import cors = require('cors');
+import dotenv = require('dotenv');
+import express = require('express');
+import rateLimit = require('express-rate-limit');
+import httpErrors = require('http-errors');
+import jwt = require('jsonwebtoken');
+import passport = require('passport');
+import httpBearer = require('passport-http-bearer');
+import countryDataHandler = require('./countryData');
+import type { NextFunction, Request, Response } from 'express';
 
 // Read environment variables from .env
 dotenv.config();
@@ -15,14 +15,14 @@ dotenv.config();
 // Ensure necessary environment variables are defined
 const {
   ACCESS_KEY,
-  PORT = "3001",
-  SECRET_KEY
+  PORT = '3001',
+  SECRET_KEY,
 }: { ACCESS_KEY?: string; PORT?: string; SECRET_KEY?: string } = process.env;
 if (!ACCESS_KEY) {
-  throw new Error("Server requires a Fixer access key!");
+  throw new Error('Server requires a Fixer access key!');
 }
 if (!SECRET_KEY) {
-  throw new Error("Server requires a secret key for authentication!");
+  throw new Error('Server requires a secret key for authentication!');
 }
 
 const app = express();
@@ -37,7 +37,7 @@ const limiter = rateLimit({
   },
   max: 30,
   message: httpErrors(429),
-  windowMs: 60 * 1000 // 1 minute
+  windowMs: 60 * 1000, // 1 minute
 });
 
 // Setup Passport for JWT authentication
@@ -48,9 +48,9 @@ passport.use(
       // according to official docs the verify method returns the decoded signature.
       const decoded = jwt.verify(token, SECRET_KEY, {
         // Only allow the algorithm we used
-        algorithms: ["HS512"],
+        algorithms: ['HS512'],
         // Verify token issuer
-        issuer: "currency-convert"
+        issuer: 'currency-convert',
       }) as Record<string, unknown>;
       // Pipe token information (which contains users' IP),
       // as well as the token itself (for rate limiting) as the request's identifier.
@@ -78,20 +78,20 @@ app.use(cors());
 app.use(passport.initialize());
 
 // JWT API
-app.post("/login", (req, res) => {
+app.post('/login', (req, res) => {
   // Use users' IP as a pseudo-identifier (since they are anonymous)
   const token = jwt.sign({ ip: req.ip }, SECRET_KEY, {
-    algorithm: "HS512",
-    expiresIn: "12h",
-    issuer: "currency-convert"
+    algorithm: 'HS512',
+    expiresIn: '12h',
+    issuer: 'currency-convert',
   });
   res.json({ token });
 });
 
 // Country Data API
 app.get(
-  "/country/:countryName",
-  passport.authenticate("bearer", { session: false }),
+  '/country/:countryName',
+  passport.authenticate('bearer', { session: false }),
   limiter,
   countryDataHandler
 );
@@ -111,9 +111,9 @@ app.use((error: Error & { status?: number }, _: Request, res: Response, __: Next
 // Start the server
 const server = app.listen(parseInt(PORT, 10), () => {
   let serverAddress = server.address();
-  if (typeof serverAddress === "object" && serverAddress !== null) {
+  if (typeof serverAddress === 'object' && serverAddress !== null) {
     serverAddress = `http://${serverAddress.address}:${serverAddress.port}`;
   }
 
-  console.log(`App listening at ${serverAddress ?? "unknown"}`);
+  console.log(`App listening at ${serverAddress ?? 'unknown'}`);
 });

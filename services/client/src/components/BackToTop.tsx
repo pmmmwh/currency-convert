@@ -1,8 +1,8 @@
-import * as React from "react";
-import { Fab, useMediaQuery, useScrollTrigger, Zoom } from "@material-ui/core";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { KeyboardArrowUp as KeyboardArrowUpIcon } from "@material-ui/icons";
-import type { MouseEvent } from "react";
+import * as React from 'react';
+import { Fab, useMediaQuery, useScrollTrigger, Zoom } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { KeyboardArrowUp as KeyboardArrowUpIcon } from '@material-ui/icons';
+import type { MouseEvent } from 'react';
 
 export interface BackToTopProps {
   anchorId: string;
@@ -11,20 +11,20 @@ export interface BackToTopProps {
 const useStyles = makeStyles((theme) => ({
   button: {
     bottom: theme.spacing(2),
-    position: "fixed",
-    right: theme.spacing(2)
-  }
+    position: 'fixed',
+    right: theme.spacing(2),
+  },
 }));
 
 function BackToTop({ anchorId }: BackToTopProps) {
   const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   // Only show trigger when scroll position exceeds the threshold
   const trigger = useScrollTrigger({
     // Disable scroll direction detection before we exit the 'threshold zone'
     disableHysteresis: true,
     // The values below are default heights (in material-ui) for a TopBar
-    threshold: isDesktop ? 64 : 56
+    threshold: isDesktop ? 64 : 56,
   });
   const classes = useStyles();
 
@@ -36,7 +36,7 @@ function BackToTop({ anchorId }: BackToTopProps) {
     );
 
     if (anchor) {
-      anchor.scrollIntoView({ behavior: "smooth", block: "start" });
+      anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 

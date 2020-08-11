@@ -13,7 +13,7 @@ export interface ApiCountryInfo {
 export type RestCountriesData = ApiCountryInfo[];
 
 export interface FixerData {
-  base: "EUR";
+  base: 'EUR';
   date: string;
   rates: Record<string, number>;
   success: true;

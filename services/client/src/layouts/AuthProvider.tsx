@@ -1,11 +1,11 @@
-import * as React from "react";
-import { useQuery } from "react-query";
-import { fetcher } from "../utils";
-import type { LoginInfo } from "@currency-convert/types";
-import type { PropsWithChildren } from "react";
-import Loading from "../components/Loading";
-import Snackbar from "../components/Snackbar";
-import { useContext } from "react";
+import * as React from 'react';
+import { useQuery } from 'react-query';
+import { fetcher } from '../utils';
+import type { LoginInfo } from '@currency-convert/types';
+import type { PropsWithChildren } from 'react';
+import Loading from '../components/Loading';
+import Snackbar from '../components/Snackbar';
+import { useContext } from 'react';
 
 const AuthContext = React.createContext<LoginInfo | undefined>(undefined);
 
@@ -13,7 +13,7 @@ export function useAuth() {
   const authInfo = useContext(AuthContext);
   // Guard against context initialization
   if (!authInfo) {
-    throw new Error("`useAuth` can only be used in children of `AuthProvider`!");
+    throw new Error('`useAuth` can only be used in children of `AuthProvider`!');
   }
 
   return authInfo;
@@ -25,8 +25,8 @@ function AuthProvider({ children }: PropsWithChildren<{}>) {
 
   // JWT Fetching
   const { clear, data, isError, isIdle, isLoading, refetch } = useQuery(
-    "login",
-    (url: string) => fetcher<LoginInfo>(url, { method: "POST" }),
+    'login',
+    (url: string) => fetcher<LoginInfo>(url, { method: 'POST' }),
     // Disable auto-revalidation of the queried data
     { enabled: false }
   );

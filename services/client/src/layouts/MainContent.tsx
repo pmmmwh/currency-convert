@@ -1,38 +1,38 @@
-import * as React from "react";
-import { Grid, IconButton, InputAdornment, Table, TextField } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { Add as AddIcon } from "@material-ui/icons";
-import { useInfiniteQuery } from "react-query";
-import { ListTableBody, ListTableHead } from "../components/ListTable";
-import Loading from "../components/Loading";
-import NumberFormat from "../components/NumberFormat";
-import Snackbar from "../components/Snackbar";
-import { fetcher, roundTo, uniqBy } from "../utils";
-import { useAuth } from "./AuthProvider";
-import type { CountryInfo } from "@currency-convert/types";
-import type { ChangeEvent, SyntheticEvent } from "react";
-import type { ListCell, ListTableDataRow } from "../components/ListTable";
+import * as React from 'react';
+import { Grid, IconButton, InputAdornment, Table, TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Add as AddIcon } from '@material-ui/icons';
+import { useInfiniteQuery } from 'react-query';
+import { ListTableBody, ListTableHead } from '../components/ListTable';
+import Loading from '../components/Loading';
+import NumberFormat from '../components/NumberFormat';
+import Snackbar from '../components/Snackbar';
+import { fetcher, roundTo, uniqBy } from '../utils';
+import { useAuth } from './AuthProvider';
+import type { CountryInfo } from '@currency-convert/types';
+import type { ChangeEvent, SyntheticEvent } from 'react';
+import type { ListCell, ListTableDataRow } from '../components/ListTable';
 
 const cells: ListCell[] = [
-  { id: "name", label: "Name" },
-  { id: "population", label: "Population", numeric: true },
+  { id: 'name', label: 'Name' },
+  { id: 'population', label: 'Population', numeric: true },
   {
-    id: "currencies",
-    label: "Currencies"
+    id: 'currencies',
+    label: 'Currencies',
   },
   {
-    id: "convertedAmounts",
-    label: "Converted Amounts",
-    numeric: true
-  }
+    id: 'convertedAmounts',
+    label: 'Converted Amounts',
+    numeric: true,
+  },
 ];
 
 const errorMessages = {
   404: (country: string) =>
-    [`Unable to find the received country: ${country}.`, "Please check your input."].join(" "),
-  429: () => ["Rate limit reached for adding countries!", "Please try again later!"].join(" "),
+    [`Unable to find the received country: ${country}.`, 'Please check your input.'].join(' '),
+  429: () => ['Rate limit reached for adding countries!', 'Please try again later!'].join(' '),
   default: (country: string) =>
-    [`An error occurred while fetching data for: ${country}.`, "Please try again!"].join(" ")
+    [`An error occurred while fetching data for: ${country}.`, 'Please try again!'].join(' '),
 };
 
 interface DataRow extends ListTableDataRow {
@@ -46,27 +46,27 @@ interface DataRow extends ListTableDataRow {
 
 const useStyles = makeStyles((theme) => ({
   main: {
-    height: "100%",
+    height: '100%',
     padding: theme.spacing(4),
-    width: "100%"
+    width: '100%',
   },
   table: {
-    minWidth: 536
-  }
+    minWidth: 536,
+  },
 }));
 
 function MainContent() {
   // Text Fields
   const [SEKAmount, setSEKAmount] = React.useState(0);
-  const [country, setCountry] = React.useState("");
+  const [country, setCountry] = React.useState('');
 
   // Snack Bar
   const [
     { open: errorSnackbarOpen, message: errorSnackbarMessage },
-    setErrorSnackbarState
+    setErrorSnackbarState,
   ] = React.useState({
     open: false,
-    message: ""
+    message: '',
   });
 
   // Use JWT
@@ -74,12 +74,12 @@ function MainContent() {
 
   // Data Fetching
   const { data, fetchMore, isFetching } = useInfiniteQuery<CountryInfo, string, string>(
-    "country",
+    'country',
     (url: string, name?: string) =>
-      fetcher<CountryInfo>(`${url}/${name ?? ""}`, {
+      fetcher<CountryInfo>(`${url}/${name ?? ''}`, {
         headers: {
-          authorization: `Bearer ${token}`
-        }
+          authorization: `Bearer ${token}`,
+        },
       }),
     {
       // Disable fetch on mount
@@ -88,10 +88,10 @@ function MainContent() {
         // This is a placeholder -
         // in our case the next fetch is dynamically determined from `country`,
         // and the default value here will get overrode when we call `fetchMore`.
-        return "placeholder";
+        return 'placeholder';
       },
       // Disable retries as it will make rate-limiting much more painful for users
-      retry: 0
+      retry: 0,
     }
   );
 
@@ -115,22 +115,22 @@ function MainContent() {
       try {
         await fetchMore(country);
         // Reset current input country if fetch is success
-        setCountry("");
+        setCountry('');
       } catch (error) {
         setErrorSnackbarState({
           open: true,
           // In accordance to the status code, show a relevant error message
           message: (
-            errorMessages[(error?.status as keyof typeof errorMessages) ?? "default"] ||
+            errorMessages[(error?.status as keyof typeof errorMessages) ?? 'default'] ||
             errorMessages.default
-          )(country)
+          )(country),
         });
       }
     }
   }
 
   function handleSnackbarClose() {
-    setErrorSnackbarState({ open: false, message: "" });
+    setErrorSnackbarState({ open: false, message: '' });
   }
 
   // Transform the data for render
@@ -146,10 +146,10 @@ function MainContent() {
         // 1. Loop over all currencies' codes;
         // 2. Join them with '\n' if we're not processing the last item
         currencies: currencies.reduce(
-          (acc, { code }, ix) => `${acc}${code}${ix !== currencies.length - 1 ? "\n" : ""}`,
-          ""
+          (acc, { code }, ix) => `${acc}${code}${ix !== currencies.length - 1 ? '\n' : ''}`,
+          ''
         ),
-        population: population.toLocaleString("en-SE"),
+        population: population.toLocaleString('en-SE'),
         // 1. Loop over all currencies' rates;
         // 2. Convert SEKAmount to the currency with its symbol;
         // 3. Join them with '\n' if we're not processing the last item
@@ -157,10 +157,10 @@ function MainContent() {
           (acc, { rates, symbol }, ix) =>
             // We can safely round to 3 d.p. as no active currencies use more than that
             `${acc}${symbol}${roundTo(SEKAmount * rates.to, 3)}${
-              ix !== currencies.length - 1 ? "\n" : ""
+              ix !== currencies.length - 1 ? '\n' : ''
             }`,
-          ""
-        )
+          ''
+        ),
       };
     });
   }, [data, SEKAmount]);
@@ -180,7 +180,7 @@ function MainContent() {
                 fullWidth
                 label="Country"
                 InputLabelProps={{
-                  shrink: true
+                  shrink: true,
                 }}
                 InputProps={{
                   endAdornment: (
@@ -194,7 +194,7 @@ function MainContent() {
                         <AddIcon />
                       </IconButton>
                     </InputAdornment>
-                  )
+                  ),
                 }}
                 onChange={handleCountryChange}
                 placeholder="Add a country to the list"
@@ -208,11 +208,11 @@ function MainContent() {
               fullWidth
               label="Amount (SEK)"
               InputLabelProps={{
-                shrink: true
+                shrink: true,
               }}
               InputProps={{
                 inputComponent: NumberFormat,
-                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                startAdornment: <InputAdornment position="start">$</InputAdornment>,
               }}
               onChange={handleSEKAmountChange}
               value={SEKAmount}

@@ -1,10 +1,10 @@
-import * as React from "react";
-import ReactNumberFormat from "react-number-format";
-import type { ChangeEvent } from "react";
-import type { NumberFormatProps as OriginalNumberFormatProps } from "react-number-format";
-import type { Except } from "type-fest";
+import * as React from 'react';
+import ReactNumberFormat from 'react-number-format';
+import type { ChangeEvent } from 'react';
+import type { NumberFormatProps as OriginalNumberFormatProps } from 'react-number-format';
+import type { Except } from 'type-fest';
 
-export interface NumberFormatProps extends Except<OriginalNumberFormatProps, "onValueChange"> {
+export interface NumberFormatProps extends Except<OriginalNumberFormatProps, 'onValueChange'> {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -28,8 +28,8 @@ function NumberFormat({ id, inputRef, name, onChange, ...restProps }: NumberForm
             name,
             id,
             // Default to 0 in the case of a malformed input
-            value: values.floatValue?.toString() || "0"
-          }
+            value: values.floatValue?.toString() || '0',
+          },
         } as ChangeEvent<HTMLInputElement>);
       }}
       // Sweden uses ' ' instead of ',' for thousand separator (from 'en-SE')

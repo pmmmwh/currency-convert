@@ -1,15 +1,15 @@
-import * as React from "react";
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
-import { ErrorBoundary } from "react-error-boundary";
-import BackToTop from "../components/BackToTop";
-import ThemeProvider from "../components/ThemeProvider";
-import AuthProvider from "./AuthProvider";
-import ErrorFallback from "./ErrorFallback";
-import MainContent from "./MainContent";
+import * as React from 'react';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { ErrorBoundary } from 'react-error-boundary';
+import BackToTop from '../components/BackToTop';
+import ThemeProvider from '../components/ThemeProvider';
+import AuthProvider from './AuthProvider';
+import ErrorFallback from './ErrorFallback';
+import MainContent from './MainContent';
 
 function App() {
   // This is used to provide scroll-to-top functionality
-  const topAnchorId = "top-anchor";
+  const topAnchorId = 'top-anchor';
 
   return (
     // Attach a global error boundary in case something goes really wrong

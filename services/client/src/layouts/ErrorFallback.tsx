@@ -1,13 +1,13 @@
-import * as React from "react";
-import { Button, Grid, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import ThemeProvider from "../components/ThemeProvider";
+import * as React from 'react';
+import { Button, Grid, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import ThemeProvider from '../components/ThemeProvider';
 
 const useStyles = makeStyles({
   main: {
-    height: "100vh",
-    width: "100vw"
-  }
+    height: '100vh',
+    width: '100vw',
+  },
 });
 
 function ErrorFallback() {
@@ -32,7 +32,7 @@ function ErrorFallback() {
             <Typography color="secondary" component="span" variant="inherit">
               Something
             </Typography>
-            {" went wrong."}
+            {' went wrong.'}
           </Typography>
         </Grid>
         <Grid item>

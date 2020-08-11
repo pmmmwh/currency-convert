@@ -1,20 +1,20 @@
-import httpErrors = require("http-errors");
-import got from "got";
-import type { CountryInfo, FixerData, RestCountriesData } from "@currency-convert/types";
-import type { Request, Response } from "express";
+import httpErrors = require('http-errors');
+import got from 'got';
+import type { CountryInfo, FixerData, RestCountriesData } from '@currency-convert/types';
+import type { Request, Response } from 'express';
 
 async function countryDataHandler(req: Request, res: Response) {
   const { countryName } = req.params;
   try {
     // Get basic country info from RestCountries
     const {
-      body: [{ currencies, name, population }]
+      body: [{ currencies, name, population }],
     } = await got<RestCountriesData>(`https://restcountries.eu/rest/v2/name/${countryName}`, {
-      responseType: "json",
+      responseType: 'json',
       searchParams: {
         // Only choose fields we need
-        fields: ["currencies", "name", "population"].join(";")
-      }
+        fields: ['currencies', 'name', 'population'].join(';'),
+      },
     });
 
     // Get exchange rates from Fixer -
@@ -22,17 +22,17 @@ async function countryDataHandler(req: Request, res: Response) {
     // so we workaround that by getting rates with the default (EUR),
     // and transpose the exchange rates into what we want by algebra (x from/to SEK).
     const {
-      body: { rates }
-    } = await got<FixerData>("http://data.fixer.io/api/latest", {
-      responseType: "json",
+      body: { rates },
+    } = await got<FixerData>('http://data.fixer.io/api/latest', {
+      responseType: 'json',
       searchParams: {
         access_key: process.env.ACCESS_KEY,
         symbols: [
-          "SEK",
+          'SEK',
           // Get all currency codes (except SEK, since we fetch that by default)
-          ...currencies.map(({ code }) => code.toUpperCase()).filter((code) => code !== "SEK")
-        ].join(",")
-      }
+          ...currencies.map(({ code }) => code.toUpperCase()).filter((code) => code !== 'SEK'),
+        ].join(','),
+      },
     });
 
     // Calculate SEK exchange rates w.r.t Euro exchange rates
@@ -44,11 +44,11 @@ async function countryDataHandler(req: Request, res: Response) {
         ...currency,
         rates: {
           from: toSEK(rates[currency.code.toUpperCase()]),
-          to: fromSEK(rates[currency.code.toUpperCase()])
-        }
+          to: fromSEK(rates[currency.code.toUpperCase()]),
+        },
       })),
       name,
-      population
+      population,
     };
 
     res.json(data);

@@ -1,9 +1,9 @@
-import * as React from "react";
-import { Snackbar as MuiSnackbar } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
-import type { SnackbarCloseReason } from "@material-ui/core/Snackbar";
-import type { Color } from "@material-ui/lab/Alert";
-import type { PropsWithChildren, SyntheticEvent } from "react";
+import * as React from 'react';
+import { Snackbar as MuiSnackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import type { SnackbarCloseReason } from '@material-ui/core/Snackbar';
+import type { Color } from '@material-ui/lab/Alert';
+import type { PropsWithChildren, SyntheticEvent } from 'react';
 
 export interface SnackbarProps {
   onClose?: (event: SyntheticEvent, reason?: SnackbarCloseReason) => void;
@@ -12,14 +12,14 @@ export interface SnackbarProps {
 }
 
 function Snackbar({
-                    children,
-                    onClose,
-                    open = false,
-                    variant = "error"
-                  }: PropsWithChildren<SnackbarProps>) {
+  children,
+  onClose,
+  open = false,
+  variant = 'error',
+}: PropsWithChildren<SnackbarProps>) {
   const handleSnackbarClose = (event: SyntheticEvent, reason?: SnackbarCloseReason) => {
     // Disable dismissal via click-away
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
 

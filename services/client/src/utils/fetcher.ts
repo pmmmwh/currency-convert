@@ -1,15 +1,15 @@
-import ky from "ky";
-import type { Options } from "ky";
+import ky from 'ky';
+import type { Options } from 'ky';
 
 async function fetcher<ResponseType>(
   url: string,
-  { method = "get", ...restOptions }: Options = {}
+  { method = 'get', ...restOptions }: Options = {}
 ): Promise<ResponseType> | never {
   try {
     return await ky(url, {
       prefixUrl: process.env.API_DOMAIN,
       method,
-      ...restOptions
+      ...restOptions,
     }).json<ResponseType>();
   } catch (error) {
     let errorData = error;

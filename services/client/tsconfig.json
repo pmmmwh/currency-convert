@@ -4,12 +4,6 @@
     // Since we use Babel for processing, we will default `tsc` to not emitting.
     "noEmit": true
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "build",
-    "node_modules"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["build", "node_modules"]
 }

@@ -1,11 +1,11 @@
-import type { JsonObject, Primitive } from "type-fest";
+import type { JsonObject, Primitive } from 'type-fest';
 
 export type ComparatorFn<Key extends keyof JsonObject> = (
   first: { [key in Key]: Primitive },
   second: { [key in Key]: Primitive }
 ) => number;
 
-export type SortOrder = "asc" | "desc";
+export type SortOrder = 'asc' | 'desc';
 
 function ascComparator<T>(first: T, second: T, orderBy: keyof T) {
   if (second[orderBy] < first[orderBy]) {
@@ -21,7 +21,7 @@ export function getComparator<OrderBy extends keyof JsonObject>(
   order: SortOrder,
   orderBy: OrderBy
 ): ComparatorFn<OrderBy> {
-  return order === "asc"
+  return order === 'asc'
     ? (first, second) => ascComparator(first, second, orderBy)
     : (first, second) => -ascComparator(first, second, orderBy);
 }
