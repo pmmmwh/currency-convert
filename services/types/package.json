@@ -1,0 +1,9 @@
+{
+  "name": "@currency-convert/types",
+  "version": "0.0.0",
+  "license": "UNLICENSED",
+  "types": "index.ts",
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  }
+}

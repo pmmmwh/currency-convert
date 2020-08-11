@@ -1,0 +1,53 @@
+{
+  "name": "currency-convert",
+  "private": true,
+  "workspaces": [
+    "services/*"
+  ],
+  "dependencies": {
+    "@currency-convert/client": "file:services/client",
+    "@currency-convert/server": "file:services/server",
+    "@currency-convert/types": "file:services/types"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "@babel/preset-typescript": "^7.10.4",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.1",
+    "@types/cors": "^2.8.7",
+    "@types/express": "^4.17.7",
+    "@types/express-rate-limit": "^5.0.0",
+    "@types/http-errors": "^1.8.0",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/node": "^14.0.27",
+    "@types/passport": "^1.0.4",
+    "@types/passport-http-bearer": "^1.0.35",
+    "@types/react": "^16.9.45",
+    "@types/react-dom": "^16.9.8",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-transform-imports": "^2.0.0",
+    "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
+    "fork-ts-checker-webpack-plugin": "^5.0.14",
+    "html-webpack-plugin": "^4.3.0",
+    "lerna": "^3.22.1",
+    "prettier": "^2.0.5",
+    "react-refresh": "^0.8.3",
+    "serve": "^11.3.2",
+    "ts-loader": "^8.0.2",
+    "ts-node-dev": "^1.0.0-pre.56",
+    "type-fest": "^0.16.0",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "convert": "lerna link convert",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "type-check": "lerna run type-check --parallel"
+  }
+}

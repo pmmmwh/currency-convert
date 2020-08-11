@@ -1,0 +1,21 @@
+{
+  "name": "@currency-convert/server",
+  "version": "0.0.0",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.1.3",
+    "got": "^11.5.2",
+    "http-errors": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "passport": "^0.4.1",
+    "passport-http-bearer": "^1.0.1"
+  },
+  "scripts": {
+    "start": "node build/index.js",
+    "build": "tsc",
+    "dev": "tsnd --clear --no-notify --transpile-only src/index.ts",
+    "type-check": "tsc --noEmit"
+  }
+}
