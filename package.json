@@ -37,7 +37,6 @@
     "prettier": "^2.0.5",
     "react-refresh": "^0.8.3",
     "serve": "^11.3.2",
-    "ts-loader": "^8.0.2",
     "ts-node-dev": "^1.0.0-pre.56",
     "type-fest": "^0.16.0",
     "typescript": "^3.9.7",
