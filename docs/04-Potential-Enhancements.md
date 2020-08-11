@@ -111,6 +111,11 @@ especially with the error flows.
 I might also rethink the idea of using a table and switch to something more fluid (using flex box to their full potential, for example) if I wanted to achieve "responsiveness"
 (i.e. if I want the project to be enjoyable on mobile screens).
 
+#### Fonts
+
+The fonts used here are not licensed to me.
+I should have asked for permission/obtained a proper license to use them.
+
 ### Throttling
 
 While I think server-side rate limiting is robust, it would also be useful if I added rate limiting in client side,

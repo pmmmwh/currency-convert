@@ -38,7 +38,8 @@ However, if the requirements were to change a slight bit, I would have used SSR 
 - If fully sound authentication is required (e.g. OAuth flows utilizing session);
 - If there are multiple distinct pages/views;
 - If there exists more complexity in the data fetching layer (e.g. multiple private APIs with authorization);
-- If performance/first paint times have to be prioritized (e.g. trying to boost Lighthouse scores)
+- If performance/first paint times have to be prioritized (e.g. trying to boost Lighthouse scores);
+- If SEO needs to be perfect (FB meta tags, separate title for each page, etc.).
 
 ### Why Use Babel for TypeScript?
 
