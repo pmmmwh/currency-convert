@@ -3,8 +3,8 @@ import { useQuery } from 'react-query';
 import { fetcher } from '../utils';
 import type { LoginInfo } from '@currency-convert/types';
 import type { PropsWithChildren } from 'react';
-import Loading from '../components/Loading';
-import Snackbar from '../components/Snackbar';
+import Loading from './Loading';
+import Snackbar from './Snackbar';
 import { useContext } from 'react';
 
 const AuthContext = React.createContext<LoginInfo | undefined>(undefined);

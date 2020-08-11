@@ -3,12 +3,12 @@ import { Grid, IconButton, InputAdornment, Table, TextField } from '@material-ui
 import { makeStyles } from '@material-ui/core/styles';
 import { Add as AddIcon } from '@material-ui/icons';
 import { useInfiniteQuery } from 'react-query';
+import { useAuth } from '../components/AuthProvider';
 import { ListTableBody, ListTableHead } from '../components/ListTable';
 import Loading from '../components/Loading';
 import NumberFormat from '../components/NumberFormat';
 import Snackbar from '../components/Snackbar';
 import { fetcher, roundTo, uniqBy } from '../utils';
-import { useAuth } from './AuthProvider';
 import type { CountryInfo } from '@currency-convert/types';
 import type { ChangeEvent, SyntheticEvent } from 'react';
 import type { ListCell, ListTableDataRow } from '../components/ListTable';

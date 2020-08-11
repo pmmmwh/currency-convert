@@ -2,8 +2,8 @@ import * as React from 'react';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { ErrorBoundary } from 'react-error-boundary';
 import BackToTop from '../components/BackToTop';
+import AuthProvider from '../components/AuthProvider';
 import ThemeProvider from '../components/ThemeProvider';
-import AuthProvider from './AuthProvider';
 import ErrorFallback from './ErrorFallback';
 import MainContent from './MainContent';
 
