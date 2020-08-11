@@ -1,5 +1,6 @@
 {
   "name": "@currency-convert/types",
+  "private": true,
   "version": "0.0.0",
   "license": "UNLICENSED",
   "types": "index.ts",

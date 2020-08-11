@@ -1,5 +1,6 @@
 {
   "name": "@currency-convert/server",
+  "private": true,
   "version": "0.0.0",
   "license": "UNLICENSED",
   "dependencies": {
