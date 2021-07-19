@@ -141,11 +141,13 @@ function MainContent() {
     // we take the unique of all available data by name before render.
     // This is because users can fetch different things but end up with the same result.
     return uniqBy(data ?? [], ({ name }) => name).map(({ currencies, population, ...restData }) => {
+      // Filter out currencies with no symbol (which would indicate "no currency")
+      const filteredCurrencies = currencies.filter(({ symbol }) => symbol);
       return {
         ...restData,
         // 1. Loop over all currencies' codes;
         // 2. Join them with '\n' if we're not processing the last item
-        currencies: currencies.reduce(
+        currencies: filteredCurrencies.reduce(
           (acc, { code }, ix) => `${acc}${code}${ix !== currencies.length - 1 ? '\n' : ''}`,
           ''
         ),
@@ -153,11 +155,11 @@ function MainContent() {
         // 1. Loop over all currencies' rates;
         // 2. Convert SEKAmount to the currency with its symbol;
         // 3. Join them with '\n' if we're not processing the last item
-        convertedAmounts: currencies.reduce(
-          (acc, { rates, symbol }, ix) =>
+        convertedAmounts: filteredCurrencies.reduce(
+          (acc, { rates, symbol }, ix, arr) =>
             // We can safely round to 3 d.p. as no active currencies use more than that
             `${acc}${symbol}${roundTo(SEKAmount * rates.to, 3)}${
-              ix !== currencies.length - 1 ? '\n' : ''
+              ix !== arr.length - 1 ? '\n' : ''
             }`,
           ''
         ),
